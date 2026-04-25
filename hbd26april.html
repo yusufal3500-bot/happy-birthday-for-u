@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special For U</title>
+    <style>
+        :root {
+            --bg: #fff1f2;
+            --cake: #f3e5ab; 
+            --icing: #ffffff;
+            --envelope: #ef4444;
+            --gold: #fbbf24;
+        }
+
+        body {
+            margin: 0; height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; background: var(--bg);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* --- BACKGROUND ANIMASI LOVE --- */
+        .hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .heart-particle {
+            position: absolute; color: #ff85a2; font-size: 20px;
+            animation: float-heart 6s linear infinite; opacity: 0;
+        }
+
+        @keyframes float-heart {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.5) rotate(45deg); opacity: 0; }
+        }
+
+        /* --- DEKORASI BANNER --- */
+        .banner {
+            position: absolute; top: 20px; display: flex; gap: 10px; z-index: 5;
+        }
+        .flag {
+            width: 40px; height: 50px; background: #ff4d6d;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%);
+            animation: swing 2s ease-in-out infinite alternate;
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-weight: bold; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        @keyframes swing { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+
+        /* --- KUE GLOSSY (BAWAH KE ATAS) --- */
+        .cake-container { display: flex; flex-direction: column-reverse; align-items: center; margin-bottom: 40px; z-index: 10; }
+        .block {
+            height: 40px; border-radius: 12px; position: relative;
+            opacity: 0; transform: scaleX(0); background: var(--cake);
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1), 0 8px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Efek Glossy & Icing Lumer */
+        .block::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 20px;
+            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 100%);
+            border-radius: 12px 12px 12px 12px;
+            box-shadow: 0 8px 0 0 white, 20px 12px 0 -2px white, -20px 12px 0 -2px white;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+        }
+
+        .b1 { width: 220px; animation: stackIn 0.5s forwards 0.5s; }
+        .b2 { width: 180px; animation: stackIn 0.5s forwards 1.0s; }
+        .b3 { width: 140px; animation: stackIn 0.5s forwards 1.5s; }
+        .b4 { width: 100px; animation: stackIn 0.5s forwards 2.0s; }
+
+        .candle {
+            width: 12px; height: 40px; background: linear-gradient(to right, #fff, #ffe4e1);
+            position: relative; border-radius: 6px; opacity: 0;
+            animation: grow 0.3s forwards 2.5s; transform-origin: bottom;
+        }
+        .flame {
+            position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+            width: 14px; height: 22px; background: #ffbe0b; border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 20px #ff4d4d, 0 0 40px #ffbe0b; animation: flicker 0.1s infinite alternate;
+        }
+
+        @keyframes stackIn { to { opacity: 1; transform: scaleX(1); } }
+        @keyframes grow { to { opacity: 1; transform: scaleY(1); } }
+        @keyframes flicker { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.1); } }
+
+        /* --- AMPLOP GLOSSY & POP-OUT --- */
+        .envelope-wrapper { position: relative; width: 240px; height: 150px; opacity: 0; animation: fadeIn 0.6s forwards 3.2s; z-index: 20; }
+        .envelope {
+            width: 100%; height: 100%; background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            position: relative; cursor: pointer; border-radius: 4px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .flap {
+            position: absolute; top: 0; width: 0; height: 0;
+            border-left: 120px solid transparent; border-right: 120px solid transparent;
+            border-top: 90px solid #991b1b; transform-origin: top; transition: 0.5s; z-index: 3;
+        }
+
+        .front {
+            position: absolute; width: 100%; height: 100%; background: transparent;
+            clip-path: polygon(0 0, 120px 85px, 240px 0, 240px 150px, 0 150px);
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%); z-index: 2;
+        }
+
+        .letter {
+            position: absolute; top: 10px; left: 10px; width: 220px; height: 130px;
+            background: #fff; border-radius: 12px; z-index: 1;
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box;
+            transition: 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .message { font-size: 11px; line-height: 1.6; color: #444; text-align: center; margin: 0; }
+
+        .envelope.open .flap { transform: rotateX(180deg); z-index: 0; }
+        .envelope.open .letter { transform: translateY(-160px); z-index: 4; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .hint { margin-top: 30px; color: #ef4444; font-weight: bold; font-size: 14px; opacity: 0; animation: fadeIn 0.5s forwards 4.5s; text-transform: uppercase; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="hearts" id="hearts"></div>
+
+    <div class="banner">
+        <div class="flag">H</div><div class="flag" style="background:#ff7096">B</div><div class="flag" style="background:#ff85a2">D</div>
+    </div>
+
+    <div class="cake-container">
+        <div class="block b1"></div>
+        <div class="block b2"></div>
+        <div class="block b3"></div>
+        <div class="block b4">
+            <div style="position: absolute; top: -40px; left: 50%; transform: translateX(-50%);">
+                <div class="candle"><div class="flame"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="envelope-wrapper">
+        <div class="envelope" onclick="this.classList.toggle('open')">
+            <div class="flap"></div>
+            <div class="front"></div>
+            
+            <div class="letter">
+                <div class="message">
+                    <b style="color: #ef4444; font-size: 14px; display: block; margin-bottom: 5px;">Happy Level Up! ✨</b>
+                    Panjang umur yaa. Semoga hal-hal yang u impikan, yang u cita-citakan tercapai. 
+                    Menjadi pribadi yang lebih baik lagi, membahagiakan orang tua dan orang-orang terdekat. ❤️
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hint">Tap the Envelope 💌</div>
+
+    <script>
+        // Membuat partikel love secara dinamis
+        const heartContainer = document.getElementById('hearts');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            heartContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
